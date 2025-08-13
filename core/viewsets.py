@@ -58,6 +58,11 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwner]
 
+    filterset_fields = ['completed', 'due_date']
+    search_fields = ['title', 'description']
+    ordering_fields = ['due_date', 'created_at']
+    ordering = ['-created_at']
+
     def get_queryset(self):
         return Task.objects.filter(created_by=self.request.user)
 
